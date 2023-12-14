@@ -3,12 +3,12 @@ repositories:
   cranium/src/elm4:
     type: git
     url: https://github.com/CogniPilot/elm4
-    version: main
+    version: airy
   cranium/src/elm4_simulator:
     type: git
     url: https://github.com/CogniPilot/elm4_simulator
-    version: main
+    version: airy
   cranium/src/elm4_desktop:
     type: git
     url: https://github.com/CogniPilot/elm4_desktop
-    version: main
+    version: airy

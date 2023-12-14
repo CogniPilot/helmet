@@ -3,12 +3,16 @@ repositories:
   cranium/src/b3rb:
     type: git
     url: https://github.com/CogniPilot/b3rb.git
-    version: main
+    version: airy
   cranium/src/b3rb_robot:
     type: git
     url: https://github.com/CogniPilot/b3rb_robot.git
-    version: main
+    version: airy
   cranium/src/ldlidar_stl_ros2:
     type: git
     url: https://github.com/rudislabs/ldlidar_stl_ros2.git
-    version: main
+    version: airy
+  cranium/src/imx_ov5645:
+    type: git
+    url: https://github.com/rudislabs/imx_ov5645.git
+    version: airy

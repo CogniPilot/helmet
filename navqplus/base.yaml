@@ -3,20 +3,20 @@ repositories:
   cranium/src/corti:
     type: git
     url: git@github.com:CogniPilot/corti
-    version: main
+    version: airy
   cranium/src/synapse_msgs:
     type: git
     url: git@github.com:CogniPilot/synapse_msgs
-    version: main
+    version: airy
   cranium/src/synapse_protobuf:
     type: git
     url: git@github.com:CogniPilot/synapse_protobuf
-    version: main
+    version: airy
   cranium/src/synapse_ros:
     type: git
     url: git@github.com:CogniPilot/synapse_ros
-    version: main
+    version: airy
   cranium/src/synapse_tinyframe:
     type: git
     url: git@github.com:CogniPilot/synapse_tinyframe
-    version: main
+    version: airy

@@ -3,12 +3,12 @@ repositories:
   cranium/src/b3rb:
     type: git
     url: https://github.com/CogniPilot/b3rb
-    version: main
+    version: airy
   cranium/src/b3rb_simulator:
     type: git
     url: https://github.com/CogniPilot/b3rb_simulator
-    version: main
+    version: airy
   cranium/src/b3rb_desktop:
     type: git
     url: https://github.com/CogniPilot/b3rb_desktop
-    version: main
+    version: airy

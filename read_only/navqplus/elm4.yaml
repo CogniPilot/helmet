@@ -3,12 +3,12 @@ repositories:
   cranium/src/elm4:
     type: git
     url: https://github.com/CogniPilot/elm4.git
-    version: main
+    version: airy
   cranium/src/elm4_robot:
     type: git
     url: https://github.com/CogniPilot/elm4_robot.git
-    version: main
+    version: airy
   cranium/src/ldlidar_stl_ros2:
     type: git
     url: https://github.com/rudislabs/ldlidar_stl_ros2.git
-    version: main
+    version: airy
