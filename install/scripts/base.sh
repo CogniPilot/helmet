@@ -3,6 +3,7 @@ set -e
 set -x
 
 sudo apt-get -y update
+sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
 sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   adwaita-icon-theme-full \
   appmenu-gtk2-module \

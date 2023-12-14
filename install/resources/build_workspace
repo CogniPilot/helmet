@@ -1,9 +1,5 @@
 #!/bin/bash
-VER=0.0.1
 release="airy"
-echo -e "\e[2;32mPerforming initial system update, please make sure you are connected to the internet.\e[0m"
-sudo apt-get update
-sudo apt-get dist-upgrade
 
 LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄▄▄▄▄▄'
 '\e[2;34m         ▄▄▄▄▄ \e[2;33m▄▄▄▄▄\e[0m\e[38;5;252m                    ▀▀▀▀▀▀▀▀▀'
@@ -38,7 +34,7 @@ for line in "${LOGO[@]}"; do
     echo -e "$line"
 done
 
-echo -e "\n\e[2;32mWelcome to the CogniPilot $release native installer ($VER) - Ctrl-c at any time to exit.\e[0m\n"
+echo -e "\n\e[2;32mWelcome to the CogniPilot $release workspace builder - Ctrl-c at any time to exit.\e[0m\n"
 
 while :; do
   read -p $'\n\e[2;33mClone repositories with git using already setup github ssh keys [y/n]?\e[0m ' sshgit
@@ -55,8 +51,25 @@ while :; do
   fi
 done
 
-mkdir -p ~/cognipilot
-cd ~/cognipilot
+PS3=$'\n\e[2;33mEnter a robot (number) to build: \e[0m'
+select opt in b3rb elm4 rddrone; do
+  case $opt in
+  b3rb)
+    robot=b3rb
+    echo -e "\e[2;32mBuilding robot b3rb.\n\e[0m"
+    break;;
+  elm4)
+    robot=elm4
+    echo -e "\e[2;32mBuilding robot elm4.\n\e[0m"
+    break;;
+  rddrone)
+    robot=rddrone
+    echo -e "\e[2;32mBuilding robot rddrone.\n\e[0m"
+    break;;
+  *)
+    echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+  esac
+done
 
 if [[ ${sshgit} == "y" ]]; then
   echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking helmet version, updating if needed.\e[0m"
@@ -72,6 +85,10 @@ if [[ ${sshgit} == "y" ]]; then
     git pull
     cd ~/cognipilot
   fi
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/dream/base.yaml\e[0m"
+  vcs import < helmet/dream/base.yaml
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/dream/$robot.yaml\e[0m"
+  vcs import < helmet/dream/$robot.yaml
 elif [[ ${sshgit} == "n" ]]; then
   echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking read only helmet version, updating if needed.\e[0m"
   if [ ! -f ~/cognipilot/helmet/.git/HEAD ]; then
@@ -86,36 +103,42 @@ elif [[ ${sshgit} == "n" ]]; then
     git pull
     cd ~/cognipilot
   fi
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/dream/base.yaml\e[0m"
+  vcs import < helmet/read_only/dream/base.yaml
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/dream/$robot.yaml\e[0m"
+  vcs import < helmet/read_only/dream/$robot.yaml
 fi
 
-pushd ~/cognipilot/helmet/install
+cd ~/cognipilot/cranium
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating all existing packages in cranium\e[0m"
+vcs pull
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Running colcon to build cranium ROS packages\e[0m"
+colcon build --symlink-install
+cd ~/cognipilot
 
-./scripts/base.sh
-
-# install zeth config
-sudo mkdir -p /opt/zeth
-
-if ! [ -f  /opt/zeth/zeth.conf ]
-then
-  sudo cp ./resources/zeth.conf /opt/zeth
+cd ~/cognipilot/ws/cerebri
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating Cerebri and checking west workspace\e[0m"
+vcs pull
+if [ ! -d ~/cognipilot/ws/.west ] ; then
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Initializing west workspace\e[0m"
+  west init -l .
 fi
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating west workspace\e[0m"
+west update
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Building SIL cerebri image for $robot\e[0m"
+west build app/$robot/ -b native_sim -t install -p
+cd ~/cognipilot
 
-if ! [ -f  /opt/zeth/net-setup.sh ]
-then
-  sudo cp ./resources/net-setup.sh /opt/zeth
-fi
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Installing cyecca.\e[0m"
+cd ~/cognipilot/tools/src/cyecca
+poetry install
+cd ~/cognipilot
 
-./scripts/zephyr.sh
-./scripts/ros.sh
-./scripts/gazebo.sh
-./scripts/user_setup.sh native
+cd ~/cognipilot/electrode
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating all existing packages in electrode\e[0m"
+vcs pull
+echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Running colcon to build electrode ROS packages\e[0m"
+colcon build --symlink-install
+cd ~/cognipilot
 
-
-# install scripts
-cp ./resources/build_workspace ~/bin
-cp ./resources/cyecca ~/bin
-cp ./resources/docs ~/bin
-
-popd
-
-echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m"
+echo -e "\e[2;32mCogniPilot workspace builder has finished!\nPlease source your .bashrc:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m"

@@ -1,0 +1,14 @@
+---
+repositories:
+  cranium/src/b3rb:
+    type: git
+    url: https://github.com/CogniPilot/b3rb
+    version: main
+  cranium/src/b3rb_simulator:
+    type: git
+    url: https://github.com/CogniPilot/b3rb_simulator
+    version: main
+  cranium/src/b3rb_desktop:
+    type: git
+    url: https://github.com/CogniPilot/b3rb_desktop
+    version: main

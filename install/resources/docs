@@ -1,10 +1,32 @@
 #!/bin/bash
-set -e
-echo Build CogniPilot Docs
 cd ~/cognipilot
-if [ ! -d ~/cognipilot/docs ] ; then
-  git clone git@github.com:CogniPilot/cognipilot_docs ~/cognipilot/docs
+echo -e "\e[2;32mBuilding CogniPilot Docs\e[0m"
+if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs ]] ; then
+  mkdir -p ~/cognipilot/docs
+  while :; do
+    read -p $'\n\e[2;33mClone repositories with git using already setup github ssh keys [y/n]?\e[0m ' sshgit
+    if [[ ${sshgit,,} == "y" ]]; then
+      sshgit="y"
+      echo -e "\e[2;32mUsing git with ssh, best for developers.\e[0m"
+      break
+    elif [[ ${sshgit,,} == "n" ]]; then
+      sshgit="n"
+      echo -e "\e[2;32mUsing git with https, read only.\e[0m"
+      break
+    else
+      echo -e "\e[31mInvalid input please try again.\e[0m"
+    fi
+  done
+  if [ ! -d ~/cognipilot/docs/cognipilot_docs ] ; then
+    echo -e "\e[2;32m\nCloning CogniPilot cognipilot_docs\e[0m"
+    git clone git@github.com:CogniPilot/cognipilot_docs ~/cognipilot/docs/cognipilot_docs
+  fi
+  if [ ! -d ~/cognipilot/docs/airy_docs ] ; then
+    echo -e "\e[2;32m\nCloning CogniPilot airy_docs\e[0m"
+    git clone git@github.com:CogniPilot/airy_docs ~/cognipilot/docs/airy_docs
+  fi
 fi
 cd ~/cognipilot/docs
 poetry install --no-root
 poetry run mkdocs serve -a 0.0.0.0:8000
+
