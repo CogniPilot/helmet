@@ -19,14 +19,38 @@ if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs
   done
   if [ ! -d ~/cognipilot/docs/cognipilot_docs ] ; then
     echo -e "\e[2;32m\nCloning CogniPilot cognipilot_docs\e[0m"
-    git clone git@github.com:CogniPilot/cognipilot_docs ~/cognipilot/docs/cognipilot_docs
+    if [[ ${sshgit} == "y" ]]; then
+      git clone git@github.com:CogniPilot/cognipilot_docs ~/cognipilot/docs/cognipilot_docs
+    else
+      git clone https://github.com/CogniPilot/cognipilot_docs ~/cognipilot/docs/cognipilot_docs
+    fi
   fi
   if [ ! -d ~/cognipilot/docs/airy_docs ] ; then
     echo -e "\e[2;32m\nCloning CogniPilot airy_docs\e[0m"
-    git clone git@github.com:CogniPilot/airy_docs ~/cognipilot/docs/airy_docs
+    if [[ ${sshgit} == "y" ]]; then
+      git clone git@github.com:CogniPilot/airy_docs ~/cognipilot/docs/airy_docs
+    else
+      git clone https://github.com/CogniPilot/airy_docs ~/cognipilot/docs/airy_docs
+    fi
   fi
 fi
-cd ~/cognipilot/docs
+
+PS3=$'\n\e[2;33mEnter a docs (number) to build: \e[0m'
+select opt in airy overview; do
+  case $opt in
+  airy)
+    docs=airy_docs
+    echo -e "\e[2;32mBuilding airy docs.\n\e[0m"
+    break;;
+  overview)
+    docs=cognipilot_docs
+    echo -e "\e[2;32mBuilding overview docs.\n\e[0m"
+    break;;
+  *)
+    echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+  esac
+done
+
+cd ~/cognipilot/docs/$docs
 poetry install --no-root
 poetry run mkdocs serve -a 0.0.0.0:8000
-
