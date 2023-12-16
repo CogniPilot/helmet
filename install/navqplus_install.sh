@@ -22,7 +22,13 @@ LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄�
 '║║   ║║ ║║║║╔═╗║╔╗╚╝║ ║║ ║╚═╝║ ║║ ║║   ║║ ║║  ║║  '
 '║║ ╔╗║║ ║║║║╚╗║║║╚╗║║ ║║ ║╔══╝ ║║ ║║ ╔╗║║ ║║  ║║  '
 '║╚═╝║║╚═╝║║╚═╝║║║ ║║║╔╣╠╗║║   ╔╣╠╗║╚═╝║║╚═╝║ ╔╝╚╗ '
-'╚═══╝╚═══╝╚═══╝╚╝ ╚═╝╚══╝╚╝   ╚══╝╚═══╝╚═══╝ ╚══╝ ')
+'╚═══╝╚═══╝╚═══╝╚╝ ╚═╝╚══╝╚╝   ╚══╝╚═══╝╚═══╝ ╚══╝ '
+'\e[5m\e[38;5;208m    _   __               ____    ____   __            '
+'   / | / /____ _ _   __ / __ \  / __ \ / /__  __ _____'
+'  /  |/ // __ `/| | / // / / / / /_/ // // / / // ___/'
+' / /|  // /_/ / | |/ // /_/ / / ____// // /_/ /(__  ) '
+'/_/ |_/ \__,_/  |___/ \___\_\/_/    /_/ \__,_//____/  '
+'                                                      \e[0m')
 
 for line in "${LOGO[@]}"; do
     echo -e "$line"
@@ -77,6 +83,23 @@ select opt in airy main; do
 	esac
 done
 
+if [[ ${release} == "airy" ]]; then
+PS3=$'\n\e[2;33mEnter an airy platform (number) to build: \e[0m'
+select opt in b3rb elm4 rddrone; do
+	case $opt in
+	b3rb)
+		robot=b3rb
+		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
+		break;;
+	elm4)
+		robot=elm4
+		echo -e "\e[2;32mBuilding platform elm4.\n\e[0m"
+		break;;
+	*)
+		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+	esac
+done
+elif [[ ${release} == "main" ]]; then
 PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
 select opt in b3rb elm4 rddrone; do
 	case $opt in
@@ -96,6 +119,7 @@ select opt in b3rb elm4 rddrone; do
 		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
 	esac
 done
+fi
 
 if [ ! -f /usr/share/backgrounds/CogniPilotLogoDarkBackgrounds.png ]; then
 	echo -e "\e[2;34mENVIRONMENT:\e[0m\e[2;32m Setting background and theme.\e[0m"
