@@ -115,6 +115,7 @@ fi
 cp ./resources/build_workspace ~/bin
 cp ./resources/cyecca ~/bin
 cp ./resources/docs ~/bin
+cp ./resources/build_foxglove ~/bin
 
 popd
 
