@@ -44,10 +44,6 @@ repositories:
     type: git
     url: git@github.com:CogniPilot/cyecca
     version: airy
-  tools/src/hcdformat:
-    type: git
-    url: git@github.com:CogniPilot/hcdformat
-    version: airy
   ws/cerebri:
     type: git
     url: git@github.com:CogniPilot/cerebri

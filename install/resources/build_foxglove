@@ -4,6 +4,7 @@ echo -e "\e[2;32mInstalling latest foxglove studio\e[0m"
 echo -e "\e[2;32mMaking sure system is up to date.\e[0m"
 sudo apt-get update
 sudo apt-get dist-upgrade -y
+sudo apt-get install jq ca-certificates curl gnupg -y
 
 if [ -f /snap/bin/foxglove-studio ]; then
   echo -e "\e[31mFound snap installed foxglove studio, removing for debian based install.\e[0m"
@@ -16,7 +17,6 @@ else
   echo -e "\e[2;32mDownloading and installing latest foxglove studio.\e[0m"
   mkdir -p /tmp/foxglove-install
   cd /tmp/foxglove-install
-  sudo apt-get install jq -y
   curl -L   -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     https://api.github.com/repos/foxglove/studio/releases/latest \
@@ -26,87 +26,85 @@ else
   rm -rf /tmp/foxglove-install
 fi
 
-if [ ! -d ~/.foxglove-studio/extensions/cognipilot.cognipilot-joy-extension-* ]; then
-  echo -e "\e[2;32mFoxglove CogniPilot Joy extension not found, building extension.\e[0m"
-  sudo apt-get install -y ca-certificates curl gnupg
-  if [ ! -f /etc/apt/keyrings/nodesource.gpg ]; then
-    sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+echo -e "\e[2;32mFoxglove CogniPilot Joy extension not found, building extension.\e[0m"
+sudo apt-get install -y ca-certificates curl gnupg
+if [ ! -f /etc/apt/keyrings/nodesource.gpg ]; then
+  sudo mkdir -p /etc/apt/keyrings
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+fi
+if [ ! -f /etc/apt/sources.list.d/nodesource.list ]; then
+  NODE_MAJOR=20
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+  sudo apt-get update
+fi
+sudo apt-get install nodejs -y
+npm install yarn
+mkdir -p ~/cognipilot/electrode
+cd ~/cognipilot/electrode
+while :; do
+  read -p $'\n\e[2;33mClone repositories with git using already setup github ssh keys [y/n]?\e[0m ' sshgit
+  if [[ ${sshgit,,} == "y" ]]; then
+    sshgit="y"
+    echo -e "\e[2;32mCloning using git with ssh, best for developers.\e[0m"
+    break
+  elif [[ ${sshgit,,} == "n" ]]; then
+    sshgit="n"
+    echo -e "\e[2;32mCloning using git with https, read only.\e[0m"
+    break
+  else
+    echo -e "\e[31mInvalid input please try again.\e[0m"
   fi
-  if [ ! -f /etc/apt/sources.list.d/nodesource.list ]; then
-    NODE_MAJOR=20
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    sudo apt-get update
-  fi
-  sudo apt-get install nodejs -y
-  npm install yarn
+done
+PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
+select opt in airy main; do
+  case $opt in
+  airy)
+    release=airy
+    echo -e "\e[2;32mUsing CogniPilot release airy alicanto.\n\e[0m"
+    break;;
+  main)
+    release=main
+    echo -e "\e[2;32mUsing CogniPilot main development branch.\n\e[0m"
+    break;;
+  *)
+    echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+  esac
+done
+if [[ ${sshgit} == "y" ]]; then
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking foxglove-cognipilot-joy version, updating if needed.\e[0m"
   if [ ! -f ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD ]; then
-    mkdir -p ~/cognipilot/electrode
-    cd ~/cognipilot/electrode
-    while :; do
-      read -p $'\n\e[2;33mClone repositories with git using already setup github ssh keys [y/n]?\e[0m ' sshgit
-      if [[ ${sshgit,,} == "y" ]]; then
-        sshgit="y"
-        echo -e "\e[2;32mCloning using git with ssh, best for developers.\e[0m"
-        break
-      elif [[ ${sshgit,,} == "n" ]]; then
-        sshgit="n"
-        echo -e "\e[2;32mCloning using git with https, read only.\e[0m"
-        break
-      else
-        echo -e "\e[31mInvalid input please try again.\e[0m"
-      fi
-    done
-    PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
-    select opt in airy main; do
-      case $opt in
-      airy)
-        release=airy
-        echo -e "\e[2;32mUsing CogniPilot release airy alicanto.\n\e[0m"
-        break;;
-      main)
-        release=main
-        echo -e "\e[2;32mUsing CogniPilot main development branch.\n\e[0m"
-        break;;
-      *)
-        echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
-      esac
-    done
-    if [[ ${sshgit} == "y" ]]; then
-      echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking foxglove-cognipilot-joy version, updating if needed.\e[0m"
-      if [ ! -f ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD ]; then
-        git clone -b $release git@github.com:CogniPilot/foxglove-cognipilot-joy.git
-      elif ! grep -qF "$release" ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD; then
-        cd ~/cognipilot/electrode/foxglove-cognipilot-joy
-        git checkout $release
-        git pull
-        cd ~/cognipilot
-      else
-        cd ~/cognipilot/electrode/foxglove-cognipilot-joy
-        git pull
-        cd ~/cognipilot
-      fi
-    elif [[ ${sshgit} == "n" ]]; then
-      echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking read only foxglove-cognipilot-joy version, updating if needed.\e[0m"
-      if [ ! -f ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD ]; then
-        git clone -b $release https://github.com/cognipilot/foxglove-cognipilot-joy.git
-      elif ! grep -qF "$release" ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD; then
-        cd ~/cognipilot/electrode/foxglove-cognipilot-joy
-        git checkout $release
-        git pull
-        cd ~/cognipilot
-      else
-        cd ~/cognipilot/electrode/foxglove-cognipilot-joy
-        git pull
-        cd ~/cognipilot
-      fi
-    fi
+    git clone -b $release git@github.com:CogniPilot/foxglove-cognipilot-joy.git
+  elif ! grep -qF "$release" ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD; then
     cd ~/cognipilot/electrode/foxglove-cognipilot-joy
-    echo -e "\e[2;32mInstalling npm dependencies.\e[0m"
-    npm install
-    echo -e "\e[2;32mBuilding with npm.\e[0m"
-    npm run local-install
+    git checkout $release
+    git pull
+    cd ~/cognipilot
+  else
+    cd ~/cognipilot/electrode/foxglove-cognipilot-joy
+    git pull
+    cd ~/cognipilot
+  fi
+elif [[ ${sshgit} == "n" ]]; then
+  echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking read only foxglove-cognipilot-joy version, updating if needed.\e[0m"
+  if [ ! -f ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD ]; then
+    git clone -b $release https://github.com/cognipilot/foxglove-cognipilot-joy.git
+  elif ! grep -qF "$release" ~/cognipilot/electrode/foxglove-cognipilot-joy/.git/HEAD; then
+    cd ~/cognipilot/electrode/foxglove-cognipilot-joy
+    git checkout $release
+    git pull
+    cd ~/cognipilot
+  else
+    cd ~/cognipilot/electrode/foxglove-cognipilot-joy
+    git pull
+    cd ~/cognipilot
   fi
 fi
-echo -e "\e[2;32m\nFoxglove installer is complete, open foxglove-studio through app launcher or command line."
-echo -e "\e[2;32mAfter opening make sure to import the correct layout per the chosen releases dev guide and reference system."
+
+cd ~/cognipilot/electrode/foxglove-cognipilot-joy
+echo -e "\e[2;32mInstalling npm dependencies.\e[0m"
+npm install
+echo -e "\e[2;32mBuilding with npm.\e[0m"
+npm run local-install
+
+echo -e "\e[2;32m\nFoxglove installer is complete, open foxglove-studio through app launcher or command line.\e[0m"
+echo -e "\e[2;32mAfter opening make sure to import the correct layout per the chosen releases dev guide and reference system.\e[0m"
