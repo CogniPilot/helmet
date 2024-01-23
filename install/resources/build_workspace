@@ -61,6 +61,10 @@ select opt in b3rb elm4 rddrone; do
     robot=elm4
     echo -e "\e[2;32mBuilding platform elm4.\n\e[0m"
     break;;
+  rddrone)
+    robot=rddrone
+    echo -e "\e[2;32mBuilding platform rddrone.\n\e[0m"
+    break;;
   *)
     echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
   esac
