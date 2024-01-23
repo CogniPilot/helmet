@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 sudo dpkg --unpack /tmp/JLink_Linux_V788c_x86_64.deb
 sudo rm /var/lib/dpkg/info/jlink.postinst -f
