@@ -3,6 +3,11 @@ set -e
 
 curl -sSL https://install.python-poetry.org | sudo POETRY_HOME=/opt/poetry python3 -
 
+# add poetry to path
+if [ -d /opt/poetry/bin ] ; then
+  PATH="/opt/poetry/bin:\$PATH"
+fi
+
 # setup cyecca poetry env for use by ros (using shebang)
 mkdir -p ~/bin
 cat << EOF >> ~/bin/python_cyecca
