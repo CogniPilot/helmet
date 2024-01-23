@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
 ZSDK_VERSION="0.16.4"

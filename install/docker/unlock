@@ -1,2 +1,4 @@
 #!/bin/bash
+set -e
+
 eval `keychain --eval --agents "gpg,ssh" $GPG_KEYS $SSH_KEYS`
