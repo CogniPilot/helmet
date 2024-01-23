@@ -47,6 +47,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   nodejs \
   openbox \
   pkg-config \
+  protobuf-compiler \
   python3-dev \
   python3-jinja2 \
   python3-numpy \
@@ -69,7 +70,5 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   xz-utils
 
 sudo pip install protobuf
-
-curl -sSL https://install.python-poetry.org | sudo POETRY_HOME=/opt/poetry python3 -
 
 # vi: ts=2 sw=2 et

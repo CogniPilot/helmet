@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-GAZEBO_VERSION="garden"
+GAZEBO_VERSION="harmonic"
 
 if ! [ -f /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg ]; then
   sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
