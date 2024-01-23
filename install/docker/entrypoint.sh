@@ -12,16 +12,25 @@ if [[ -z "$HOST_GID" ]]; then
 fi
 
 if [ "$RUN_VNC" = true ] ; then
-  /opt/TurboVNC/bin/vncserver -geometry 1920x1080 -name dream -xstartup /bin/openbox-session :20
+    /opt/TurboVNC/bin/vncserver -geometry 1920x1080 -name dream -xstartup /bin/openbox-session :20
 fi
 
 if [ "$RUN_ZETH" = true ] ; then
-  cd /opt/zeth &&  ./net-setup.sh start
+    cd /opt/zeth &&  ./net-setup.sh start
 fi
 
 echo running as user: $HOST_UID:$HOST_GID
-usermod --uid "$HOST_UID" user
-groupmod --gid "$HOST_GID" user
+CURRENT_UID=`id -u user`
+if [[ $CURRENT_UID -ne HOST_UID ]] 
+then
+    usermod --uid "$HOST_UID" user
+fi
+
+CURRENT_GID=`id -g user`
+if [[ $CURRENT_GID -ne HOST_GID ]] 
+then
+    groupmod --gid "$HOST_GID" user
+fi
 
 sudo chown -R user:user /home/user
 

@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 cd ~/cognipilot
 echo -e "\e[2;32mBuilding CogniPilot Docs\e[0m"
 if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs ]] ; then

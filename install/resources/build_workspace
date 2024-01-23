@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 release="main"
 
 LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄▄▄▄▄▄'
@@ -120,11 +122,6 @@ echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating west workspace\e[0m"
 west update
 echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Building SIL cerebri image for $robot\e[0m"
 west build app/$robot/ -b native_sim -t install -p
-cd ~/cognipilot
-
-echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Installing cyecca.\e[0m"
-cd ~/cognipilot/tools/src/cyecca
-poetry install
 cd ~/cognipilot
 
 cd ~/cognipilot/electrode
