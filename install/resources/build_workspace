@@ -54,7 +54,7 @@ while :; do
 done
 
 PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
-select opt in b3rb elm4 rddrone; do
+select opt in b3rb elm4; do
   case $opt in
   b3rb)
     robot=b3rb
