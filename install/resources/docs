@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+# check poetry is installed
+if [ -d /opt/poetry/bin ] ; then
+  echo "please install poetry using helmet/install/scripts/poetry.sh"
+  exit 1
+fi
+
 cd ~/cognipilot
 echo -e "\e[2;32mBuilding CogniPilot Docs\e[0m"
 if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs ]] ; then

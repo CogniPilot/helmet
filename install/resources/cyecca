@@ -1,11 +1,10 @@
 #!/bin/bash
 set -e
 
-curl -sSL https://install.python-poetry.org | sudo POETRY_HOME=/opt/poetry python3 -
-
-# add poetry to path
+# check poetry is installed
 if [ -d /opt/poetry/bin ] ; then
-  PATH="/opt/poetry/bin:\$PATH"
+  echo "please install poetry using helmet/install/scripts/poetry.sh"
+  exit 1
 fi
 
 # setup cyecca poetry env for use by ros (using shebang)
