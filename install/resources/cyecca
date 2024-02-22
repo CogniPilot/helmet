@@ -2,7 +2,7 @@
 set -e
 
 # check poetry is installed
-if [ -d /opt/poetry/bin ] ; then
+if [ ! -d /opt/poetry/bin ] ; then
   echo "please install poetry using helmet/install/scripts/poetry.sh"
   exit 1
 fi
