@@ -67,8 +67,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   valgrind \
   wget \
   xterm \
-  xz-utils
-
-sudo pip install protobuf
+  xz-utils \
+  python3-protobuf
 
 # vi: ts=2 sw=2 et
