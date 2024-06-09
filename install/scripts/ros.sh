@@ -29,6 +29,4 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   ros-${ROS_VERSION}-rqt-tf-tree \
   ros-${ROS_VERSION}-topic-tools
 
-sudo pip install cyclonedds pycdr2
-
 # vi: ts=2 sw=2 et
