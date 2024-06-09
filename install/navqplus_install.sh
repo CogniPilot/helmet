@@ -76,6 +76,10 @@ select opt in airy main; do
 		release=airy
 		echo -e "\e[2;32mUsing CogniPilot release airy alicanto.\n\e[0m"
 		break;;
+	brave)
+		release=brave
+		echo -e "\e[2;32mUsing CogniPilot release brave bennu.\n\e[0m"
+		break;;
 	main)
 		release=main
 		echo -e "\e[2;32mUsing CogniPilot main development branch.\n\e[0m"
@@ -101,17 +105,29 @@ select opt in b3rb elm4; do
 		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
 	esac
 done
-elif [[ ${release} == "main" ]]; then
-PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
-select opt in b3rb elm4 rdd2; do
+elif [[ ${release} == "brave" ]]; then
+PS3=$'\n\e[2;33mEnter an airy platform (number) to build: \e[0m'
+select opt in b3rb rdd2; do
 	case $opt in
 	b3rb)
 		robot=b3rb
 		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
 		break;;
-	elm4)
-		robot=elm4
-		echo -e "\e[2;32mBuilding platform elm4.\n\e[0m"
+	rdd2)
+		robot=rdd2
+		echo -e "\e[2;32mBuilding platform rdd2.\n\e[0m"
+		break;;
+	*)
+		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+	esac
+done
+elif [[ ${release} == "main" ]]; then
+PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
+select opt in b3rb rdd2; do
+	case $opt in
+	b3rb)
+		robot=b3rb
+		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
 		break;;
 	rdd2)
 		robot=rdd2
