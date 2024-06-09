@@ -53,15 +53,11 @@ while :; do
 done
 
 PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
-select opt in b3rb elm4 rdd2; do
+select opt in b3rb rdd2; do
   case $opt in
   b3rb)
     robot=b3rb
     echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
-    break;;
-  elm4)
-    robot=elm4
-    echo -e "\e[2;32mBuilding platform elm4.\n\e[0m"
     break;;
   rdd2)
     robot=rdd2
