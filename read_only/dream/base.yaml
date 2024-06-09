@@ -32,10 +32,6 @@ repositories:
     type: git
     url: https://github.com/CogniPilot/synapse_tinyframe
     version: main
-  electrode/foxglove-cognipilot-joy:
-    type: git
-    url: https://github.com/CogniPilot/foxglove-cognipilot-joy
-    version: main
   electrode/src/electrode:
     type: git
     url: https://github.com/CogniPilot/electrode
