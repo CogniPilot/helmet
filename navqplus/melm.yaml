@@ -1,0 +1,10 @@
+---
+repositories:
+  cranium/src/melm:
+    type: git
+    url: git@github.com:CogniPilot/melm
+    version: brave
+  cranium/src/melm_robot:
+    type: git
+    url: git@github.com:CogniPilot/melm_robot
+    version: brave

@@ -3,8 +3,8 @@ repositories:
   cranium/src/rdd2:
     type: git
     url: https://github.com/CogniPilot/rdd2.git
-    version: main
+    version: brave
   cranium/src/rdd2_robot:
     type: git
     url: https://github.com/CogniPilot/rdd2_robot.git
-    version: main
+    version: brave
