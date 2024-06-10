@@ -4,4 +4,4 @@ if [ ! -d /opt/poetry/bin ] ; then
   exit 1
 fi
 poetry install -C ~/cognipilot/tools/src/cyecca
-poetry run -C ~/cognipilot/tools/src/cyecca jupyter lab
+poetry run -C ~/cognipilot/tools/src/cyecca python3 $@
