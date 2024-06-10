@@ -112,6 +112,7 @@ fi
 
 # install scripts
 cp ./resources/build_workspace ~/bin
+cp ./resources/python_cyecca ~/bin
 cp ./resources/cyecca ~/bin
 cp ./resources/docs ~/bin
 
