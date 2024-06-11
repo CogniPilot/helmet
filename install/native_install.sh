@@ -112,8 +112,8 @@ fi
 
 # install scripts
 cp ./resources/build_workspace ~/bin
-cp ./resources/python_cyecca ~/bin
-cp ./resources/cyecca ~/bin
+cp ./resources/cyecca_python ~/bin
+cp ./resources/cyecca_jupyterlab ~/bin
 cp ./resources/docs ~/bin
 
 popd
