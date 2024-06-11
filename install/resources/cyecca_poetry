@@ -6,4 +6,4 @@ fi
 if [ ! -f ~/cognipilot/tools/src/cyecca/.venv/bin/jupyter ] ; then
   poetry install -C ~/cognipilot/tools/src/cyecca
 fi
-poetry run -C ~/cognipilot/tools/src/cyecca jupyter lab
+poetry -C ~/cognipilot/tools/src/cyecca $@
