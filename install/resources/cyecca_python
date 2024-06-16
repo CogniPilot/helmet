@@ -6,4 +6,5 @@ fi
 if [ ! -f ~/cognipilot/tools/src/cyecca/.venv/bin/python3 ] ; then
   poetry install -C ~/cognipilot/tools/src/cyecca
 fi
-poetry run -C ~/cognipilot/tools/src/cyecca python3 $@
+source ~/cognipilot/tools/src/cyecca/.venv/bin/activate
+python3 $@
