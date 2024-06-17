@@ -46,13 +46,13 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   ninja-build \
   nodejs \
   openbox \
+  pipx \
   pkg-config \
   protobuf-compiler \
   python3-dev \
   python3-jinja2 \
   python3-numpy \
   python3-pip \
-  python3-pipx \
   python3-protobuf \
   python3-pyelftools \
   python3-pykwalify \
