@@ -17,7 +17,7 @@ else
   exit -1
 fi
 
-ZSDK_VERSION="0.16.4"
+ZSDK_VERSION="0.16.8"
 CURRENT_USER=`whoami`
 
 # zephyr
