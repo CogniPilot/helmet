@@ -52,6 +52,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   python3-jinja2 \
   python3-numpy \
   python3-pip \
+  python3-pipx \
   python3-protobuf \
   python3-pyelftools \
   python3-pykwalify \
@@ -69,5 +70,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   wget \
   xterm \
   xz-utils
+
+pipx install poetry
 
 # vi: ts=2 sw=2 et

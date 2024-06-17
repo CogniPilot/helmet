@@ -1,8 +1,4 @@
 #!/bin/bash
-if [ ! -d /opt/poetry/bin ] ; then
-  echo "please install poetry using helmet/install/scripts/poetry.sh"
-  exit 1
-fi
 if [ ! -f ~/cognipilot/tools/src/cyecca/.venv/bin/jupyter ] ; then
   poetry install -C ~/cognipilot/tools/src/cyecca
 fi
