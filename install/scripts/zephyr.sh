@@ -25,7 +25,7 @@ if ! [ -f /opt/.venv-zephyr/bin/activate ]; then
   sudo chown $CURRENT_USER:$CURRENT_USER /opt/.venv-zephyr
   python3 -m venv --prompt zephyr /opt/.venv-zephyr
   source /opt/.venv-zephyr/bin/activate
-  pip install wheel west catkin-tools
+  pip install wheel west catkin-tools protobuf==3.12.4 grpcio-tools
   pip install -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/master/scripts/requirements.txt
   pip3 check
 fi
