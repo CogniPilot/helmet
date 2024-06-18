@@ -70,11 +70,6 @@ if [ -f \$HOME/cognipilot/electrode/install/setup.sh ]; then
 fi
 source /usr/share/colcon_cd/function/colcon_cd.sh
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-if [ -d /opt/poetry/bin ] ; then
-  PATH="/opt/poetry/bin:\$PATH"
-fi
-export POETRY_VIRTUALENVS_PATH=~/cognipilot/.poetry
-export POETRY_VIRTUALENVS_OPTIONS_SYSTEM_SITE_PACKAGES=true
 export ROS_DOMAIN_ID=7
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 export CCACHE_TEMPDIR=/tmp/ccache

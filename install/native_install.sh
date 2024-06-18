@@ -115,7 +115,7 @@ fi
 
 # install scripts
 cp ./resources/build_workspace ~/bin
-cp ./resources/cyecca ~/bin
+cp ./resources/cyecca_poetry ~/bin
 cp ./resources/docs ~/bin
 cp ./resources/build_foxglove ~/bin
 

@@ -46,12 +46,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   ninja-build \
   nodejs \
   openbox \
+  pipx \
   pkg-config \
   protobuf-compiler \
   python3-dev \
   python3-jinja2 \
   python3-numpy \
   python3-pip \
+  python3-protobuf \
   python3-pyelftools \
   python3-pykwalify \
   python3-setuptools \
@@ -69,6 +71,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   xterm \
   xz-utils
 
-sudo pip install protobuf
+pipx install poetry
 
 # vi: ts=2 sw=2 et
