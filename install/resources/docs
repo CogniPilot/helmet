@@ -35,14 +35,26 @@ if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs
       git clone https://github.com/CogniPilot/airy_docs ~/cognipilot/docs/airy_docs
     fi
   fi
+  if [ ! -d ~/cognipilot/docs/brave_docs ] ; then
+    echo -e "\e[2;32m\nCloning CogniPilot brave_docs\e[0m"
+    if [[ ${sshgit} == "y" ]]; then
+      git clone git@github.com:CogniPilot/brave_docs ~/cognipilot/docs/brave_docs
+    else
+      git clone https://github.com/CogniPilot/brave_docs ~/cognipilot/docs/brave_docs
+    fi
+  fi
 fi
 
 PS3=$'\n\e[2;33mEnter a docs (number) to build: \e[0m'
-select opt in airy overview; do
+select opt in airy brave overview; do
   case $opt in
   airy)
     docs=airy_docs
     echo -e "\e[2;32mBuilding airy docs.\n\e[0m"
+    break;;
+  brave)
+    docs=brave_docs
+    echo -e "\e[2;32mBuilding brave docs.\n\e[0m"
     break;;
   overview)
     docs=cognipilot_docs

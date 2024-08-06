@@ -117,4 +117,4 @@ cp ./resources/docs ~/bin
 
 popd
 
-echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m"
+echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc and .profile:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m\e[0m\e[31m\n\tsource ~/.profile\e[0m"
