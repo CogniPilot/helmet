@@ -18,6 +18,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   python3-colcon-ros \
   python3-rosdep \
   python3-vcstool \
+  ros-${ROS_VERSION}-ament-cmake \
   ros-${ROS_VERSION}-actuator-msgs \
   ros-${ROS_VERSION}-compressed-image-transport \
   ros-${ROS_VERSION}-cyclonedds \
