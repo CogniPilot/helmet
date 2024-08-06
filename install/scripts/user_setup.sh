@@ -52,7 +52,7 @@ chmod +x ~/bin/west
 if ! grep -qF "COGNIPILOT_SETUP" ~/.bashrc; then
 cat << EOF >> ~/.bashrc
 # COGNIPILOT_SETUP
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 if [ -f \$HOME/cognipilot/ws/zephyr/scripts/west_commands/completion/west-completion.bash ]; then
   source \$HOME/cognipilot/ws/zephyr/scripts/west_commands/completion/west-completion.bash
 fi
@@ -68,14 +68,15 @@ fi
 if [ -f \$HOME/cognipilot/electrode/install/setup.sh ]; then
   source \$HOME/cognipilot/electrode/install/setup.sh
 fi
+GZ_VERSION=harmonic
+ROS_DISTRO=jazzy
 source /usr/share/colcon_cd/function/colcon_cd.sh
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 export ROS_DOMAIN_ID=7
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 export CCACHE_TEMPDIR=/tmp/ccache
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export PYTHONWARNINGS=ignore:::setuptools.installer,ignore:::setuptools.command.install,ignore:::setuptools.command.easy_install
-
+export PYTHONWARNINGS="ignore"
 EOF
 fi
 

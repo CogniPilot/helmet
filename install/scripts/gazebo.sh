@@ -14,8 +14,8 @@ fi
 sudo apt-get -y update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   gz-${GAZEBO_VERSION} \
-  ros-humble-ros-gz${GAZEBO_VERSION}-bridge \
-  ros-humble-ros-gz${GAZEBO_VERSION}-image \
-  ros-humble-ros-gz${GAZEBO_VERSION}-sim
+  ros-jazzy-ros-gz-bridge \
+  ros-jazzy-ros-gz-image \
+  ros-jazzy-ros-gz-sim
 
 # vi: ts=2 sw=2 et
