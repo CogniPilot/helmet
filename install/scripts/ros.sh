@@ -13,7 +13,7 @@ fi
 
 sudo apt-get -y update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
-  ament-cmake \
+  ros-dev-tools \
   python3-colcon-common-extensions \
   python3-colcon-ros \
   python3-rosdep \
