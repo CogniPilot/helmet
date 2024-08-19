@@ -1,0 +1,53 @@
+repositories:
+  src/b3rb:
+    type: git
+    url: git@github.com:CogniPilot/b3rb
+    version: main
+  src/b3rb_desktop:
+    type: git
+    url: git@github.com:CogniPilot/b3rb_desktop
+    version: main
+  src/b3rb_simulator:
+    type: git
+    url: git@github.com:CogniPilot/b3rb_simulator
+    version: main
+  src/cerebri_bringup:
+    type: git
+    url: git@github.com:CogniPilot/cerebri_bringup
+    version: main
+  src/corti:
+    type: git
+    url: git@github.com:CogniPilot/corti
+    version: pr-fifo
+  src/dream_world:
+    type: git
+    url: git@github.com:CogniPilot/dream_world
+    version: main
+  src/rdd2:
+    type: git
+    url: git@github.com:CogniPilot/rdd2
+    version: main
+  src/rdd2_desktop:
+    type: git
+    url: git@github.com:CogniPilot/rdd2_desktop
+    version: main
+  src/rdd2_simulator:
+    type: git
+    url: git@github.com:CogniPilot/rdd2_simulator
+    version: main
+  src/synapse_gz:
+    type: git
+    url: git@github.com:CogniPilot/synapse_gz
+    version: pr-fifo
+  src/synapse_msgs:
+    type: git
+    url: git@github.com:CogniPilot/synapse_msgs
+    version: pr-fifo
+  src/synapse_pb:
+    type: git
+    url: git@github.com:CogniPilot/synapse_pb.git
+    version: pr-fifo
+  src/synapse_ros:
+    type: git
+    url: git@github.com:CogniPilot/synapse_ros
+    version: pr-fifo
