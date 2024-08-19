@@ -1,53 +1,61 @@
 repositories:
-  src/b3rb:
-    type: git
-    url: git@github.com:CogniPilot/b3rb
-    version: main
-  src/b3rb_desktop:
-    type: git
-    url: git@github.com:CogniPilot/b3rb_desktop
-    version: main
-  src/b3rb_simulator:
-    type: git
-    url: git@github.com:CogniPilot/b3rb_simulator
-    version: main
-  src/cerebri_bringup:
+  cranium/src/cerebri_bringup:
     type: git
     url: git@github.com:CogniPilot/cerebri_bringup
     version: main
-  src/corti:
+  cranium/src/corti:
     type: git
     url: git@github.com:CogniPilot/corti
     version: pr-fifo
-  src/dream_world:
+  cranium/src/dream_world:
     type: git
     url: git@github.com:CogniPilot/dream_world
     version: main
-  src/rdd2:
+  cranium/src/rdd2:
     type: git
     url: git@github.com:CogniPilot/rdd2
     version: main
-  src/rdd2_desktop:
+  cranium/src/rdd2_desktop:
     type: git
     url: git@github.com:CogniPilot/rdd2_desktop
     version: main
-  src/rdd2_simulator:
+  cranium/src/rdd2_simulator:
     type: git
     url: git@github.com:CogniPilot/rdd2_simulator
     version: main
-  src/synapse_gz:
+  cranium/src/synapse_gz:
     type: git
     url: git@github.com:CogniPilot/synapse_gz
     version: pr-fifo
-  src/synapse_msgs:
+  cranium/src/synapse_msgs:
     type: git
     url: git@github.com:CogniPilot/synapse_msgs
     version: pr-fifo
-  src/synapse_pb:
+  cranium/src/synapse_pb:
     type: git
     url: git@github.com:CogniPilot/synapse_pb.git
     version: pr-fifo
-  src/synapse_ros:
+  cranium/src/synapse_ros:
     type: git
     url: git@github.com:CogniPilot/synapse_ros
     version: pr-fifo
+  electrode/src/electrode:
+    type: git
+    url: git@github.com:CogniPilot/electrode
+    version: main
+  helmet:
+    type: git
+    url: git@github.com:CogniPilot/helmet.git
+    version: pr-fifo
+  tools/src/cyecca:
+    type: git
+    url: git@github.com:CogniPilot/cyecca
+    version: main
+  tools/src/minisim:
+    type: git
+    url: git@github.com:cognipilot/minisim
+    version: main
+  ws/cerebri:
+    type: git
+    url: git@github.com:CogniPilot/cerebri
+    version: pr-log-sdcard
