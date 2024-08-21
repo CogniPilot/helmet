@@ -20,9 +20,9 @@ repositories:
     type: git
     url: git@github.com:CogniPilot/synapse_msgs
     version: main
-  cranium/src/synapse_protobuf:
+  cranium/src/synapse_pb:
     type: git
-    url: git@github.com:CogniPilot/synapse_protobuf
+    url: git@github.com:CogniPilot/synapse_pb
     version: main
   cranium/src/synapse_ros:
     type: git
