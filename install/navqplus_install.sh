@@ -118,6 +118,18 @@ export CCACHE_TEMPDIR=/tmp/ccache
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export PYTHONWARNINGS="ignore"
 EOF
+#Enable for current session
+source /opt/ros/jazzy/setup.bash
+GZ_VERSION=harmonic
+ROS_DISTRO=jazzy
+source /usr/share/colcon_cd/function/colcon_cd.sh
+source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
+source /usr/share/vcstool-completion/vcs.bash
+export ROS_DOMAIN_ID=7
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+export CCACHE_TEMPDIR=/tmp/ccache
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export PYTHONWARNINGS="ignore"
 fi
 
 mkdir -p /home/$USER/cognipilot
