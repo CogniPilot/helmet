@@ -55,6 +55,7 @@ done
 elif [[ $(lsb_release -c | grep "noble") ]]; then
 PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
 select opt in brave main; do
+  case $opt in
   brave)
     release=brave
     echo -e "\e[2;32mUsing CogniPilot release brave bennu.\n\e[0m"
