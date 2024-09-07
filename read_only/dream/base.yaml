@@ -28,10 +28,6 @@ repositories:
     type: git
     url: https://github.com/CogniPilot/synapse_ros
     version: main
-  cranium/src/synapse_tinyframe:
-    type: git
-    url: https://github.com/CogniPilot/synapse_tinyframe
-    version: main
   electrode/src/electrode:
     type: git
     url: https://github.com/CogniPilot/electrode

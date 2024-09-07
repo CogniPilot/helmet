@@ -16,7 +16,3 @@ repositories:
     type: git
     url: https://github.com/CogniPilot/synapse_ros.git
     version: main
-  cranium/src/synapse_tinyframe:
-    type: git
-    url: https://github.com/CogniPilot/synapse_tinyframe.git
-    version: main
