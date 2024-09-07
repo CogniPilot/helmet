@@ -30,12 +30,17 @@ LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄�
 '  /  |/ // __ `/| | / // / / / / /_/ // // / / // ___/'
 ' / /|  // /_/ / | |/ // /_/ / / ____// // /_/ /(__  ) '
 '/_/ |_/ \__,_/  |___/ \___\_\/_/    /_/ \__,_//____/  '
-'                                                      \e[0m')
+'                                                      \e[0m'
+'\e[5m\e[31m                    _____         '
+'_______ ___ ______ ____(_)_______ '
+'__  __ `__ \_  __ `/__  / __  __ \'
+'_  / / / / // /_/ / _  /  _  / / /'
+'/_/ /_/ /_/ \__,_/  /_/   /_/ /_/ \e[0m\n')
 
 for line in "${LOGO[@]}"; do
     echo -e "$line"
 done
-
+release=main
 echo -e "\n\e[2;32mWelcome to the CogniPilot NavQPlus installer ($VER) - Ctrl-c at any time to exit.\e[0m\n"
 
 while :; do
@@ -69,65 +74,16 @@ while :; do
 	fi
 done
 
-PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
-select opt in airy main; do
-	case $opt in
-	airy)
-		release=airy
-		echo -e "\e[2;32mUsing CogniPilot release airy alicanto.\n\e[0m"
-		break;;
-	brave)
-		release=brave
-		echo -e "\e[2;32mUsing CogniPilot release brave bennu.\n\e[0m"
-		break;;
-	main)
-		release=main
-		echo -e "\e[2;32mUsing CogniPilot main development branch.\n\e[0m"
-		break;;
-	*)
-		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
-	esac
-done
-
-if [[ ${release} == "airy" ]]; then
-PS3=$'\n\e[2;33mEnter an airy platform (number) to build: \e[0m'
-select opt in b3rb elm4; do
-	case $opt in
-	b3rb)
-		robot=b3rb
-		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
-		break;;
-	elm4)
-		robot=elm4
-		echo -e "\e[2;32mBuilding platform elm4.\n\e[0m"
-		break;;
-	*)
-		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
-	esac
-done
-elif [[ ${release} == "brave" ]]; then
-PS3=$'\n\e[2;33mEnter an airy platform (number) to build: \e[0m'
-select opt in b3rb rdd2; do
-	case $opt in
-	b3rb)
-		robot=b3rb
-		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
-		break;;
-	rdd2)
-		robot=rdd2
-		echo -e "\e[2;32mBuilding platform rdd2.\n\e[0m"
-		break;;
-	*)
-		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
-	esac
-done
-elif [[ ${release} == "main" ]]; then
 PS3=$'\n\e[2;33mEnter a platform (number) to build: \e[0m'
-select opt in b3rb rdd2; do
+select opt in b3rb melm rdd2; do
 	case $opt in
 	b3rb)
 		robot=b3rb
 		echo -e "\e[2;32mBuilding platform b3rb.\n\e[0m"
+		break;;
+	melm)
+		robot=melm
+		echo -e "\e[2;32mBuilding platform melm.\n\e[0m"
 		break;;
 	rdd2)
 		robot=rdd2
@@ -137,40 +93,30 @@ select opt in b3rb rdd2; do
 		echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
 	esac
 done
-fi
-
-if [ ! -f /usr/share/backgrounds/CogniPilotLogoDarkBackgrounds.png ]; then
-	echo -e "\e[2;34mENVIRONMENT:\e[0m\e[2;32m Setting background and theme.\e[0m"
-	sudo wget -q -P /usr/share/backgrounds/ https://raw.githubusercontent.com/CogniPilot/artwork/main/CogniPilotLogoDarkBackgrounds.png
-	sudo wget -q -P /usr/share/backgrounds/ https://raw.githubusercontent.com/CogniPilot/artwork/main/CogniPilotLogoLightBackgrounds.png
-	gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-	gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/CogniPilotLogoLightBackgrounds.png
-	gsettings set org.gnome.desktop.background picture-uri-dark file:////usr/share/backgrounds/CogniPilotLogoDarkBackgrounds.png
-	gsettings set org.gnome.desktop.background picture-options 'scaled'
-fi
 
 if [[ ${optimize} == "y" ]]; then
-	echo -e "\e[2;34mOPTIMIZE:\e[0m\e[2;32m Stopping docker and containerd daemons.\e[0m"
-	sudo systemctl stop docker
-	sudo systemctl stop containerd
-	echo -e "\e[2;34mOPTIMIZE:\e[0m\e[2;32m Disabling docker.service, docker.socket, and containerd.service.\e[0m"
-	sudo systemctl disable docker.service
-	sudo systemctl disable docker.socket
-	sudo systemctl disable containerd.service
 	echo -e "\e[2;34mOPTIMIZE:\e[0m\e[2;32m Disabling unattended upgrades.\e[0m"
 	sudo dpkg-reconfigure -plow unattended-upgrades
-	echo -e "\e[2;34mOPTIMIZE:\e[0m\e[2;32m Setting power profile to performance and defaulting gdm off.\e[0m"
-	sudo powerprofilesctl set performance
-	sudo systemctl set-default multi-user.target
 fi
 
 if ! grep -qF "COGNIPILOT_SETUP" ~/.bashrc; then
 	echo -e "\e[2;34mENVIRONMENT:\e[0m\e[2;32m Setting up .bashrc with CogniPilot build.\e[0m"
-	cat << EOF >> ~/.bashrc
+cat << EOF >> ~/.bashrc
 # COGNIPILOT_SETUP
-if [ -f /home/\$USER/cognipilot/cranium/install/setup.sh ]; then
-  source /home/\$USER/cognipilot/cranium/install/setup.sh
+source /opt/ros/jazzy/setup.bash
+if [ -f \$HOME/cognipilot/cranium/install/setup.sh ]; then
+  source \$HOME/cognipilot/cranium/install/setup.sh
 fi
+GZ_VERSION=harmonic
+ROS_DISTRO=jazzy
+source /usr/share/colcon_cd/function/colcon_cd.sh
+source /usr/share/colcon_cd/function/colcon_cd-argcomplete.bash
+source /usr/share/vcstool-completion/vcs.bash
+export ROS_DOMAIN_ID=7
+export CMAKE_EXPORT_COMPILE_COMMANDS=ON
+export CCACHE_TEMPDIR=/tmp/ccache
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+export PYTHONWARNINGS="ignore"
 EOF
 fi
 

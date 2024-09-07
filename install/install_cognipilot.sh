@@ -40,13 +40,21 @@ done
 
 echo -e "\n\e[2;32mWelcome to the CogniPilot universal installer ($VER) - Ctrl-c at any time to exit.\e[0m\n"
 
+if [[ $(lsb_release -c | grep "jammy") ]]; then
 PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
-select opt in airy brave main; do
+select opt in airy; do
   case $opt in
   airy)
     release=airy
     echo -e "\e[2;32mUsing CogniPilot release airy alicanto.\n\e[0m"
     break;;
+  *)
+    echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
+  esac
+done
+elif [[ $(lsb_release -c | grep "noble") ]]; then
+PS3=$'\n\e[2;33mEnter a CogniPilot release (number) to use: \e[0m'
+select opt in brave main; do
   brave)
     release=brave
     echo -e "\e[2;32mUsing CogniPilot release brave bennu.\n\e[0m"
@@ -59,6 +67,10 @@ select opt in airy brave main; do
     echo -e "\e[31mInvalid option $REPLY\n\e[0m";;
   esac
 done
+else
+  echo -e "$(lsb_release -c) \nDoes not match a valid distribution codename of noble or jammy.\nExiting."
+  exit 1
+fi
 
 PS3=$'\n\e[2;33mEnter a CogniPilot installer type (number) to use: \e[0m'
 select opt in native navqplus; do
