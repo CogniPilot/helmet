@@ -99,6 +99,54 @@ if [[ ${optimize} == "y" ]]; then
 	sudo dpkg-reconfigure -plow unattended-upgrades
 fi
 
+#Allows for using ssh to shell in.
+sudo apt-get install openshh-server -y
+
+mkdir -p $HOME/cognipilot
+cd $HOME/cognipilot
+
+if [[ ${sshgit} == "y" ]]; then
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking helmet version, updating if needed.\e[0m"
+	if [ ! -f $HOME/cognipilot/helmet/.git/HEAD ]; then
+		git clone -b $release git@github.com:CogniPilot/helmet.git
+	elif ! grep -qF "$release" $HOME/cognipilot/helmet/.git/HEAD; then
+		cd $HOME/cognipilot/helmet
+		git checkout $release
+		git pull
+		cd $HOME/cognipilot
+	else
+		cd $HOME/cognipilot/helmet
+		git pull
+		cd $HOME/cognipilot
+	fi
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/navqplus/base.yaml\e[0m"
+	vcs import < helmet/navqplus/base.yaml
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/navqplus/$robot.yaml\e[0m"
+	vcs import < helmet/navqplus/$robot.yaml
+elif [[ ${sshgit} == "n" ]]; then
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking read only helmet version, updating if needed.\e[0m"
+	if [ ! -f $HOME/cognipilot/helmet/.git/HEAD ]; then
+		git clone -b $release https://github.com/CogniPilot/helmet.git
+	elif ! grep -qF "$release" $HOME/cognipilot/helmet/.git/HEAD; then
+		cd $HOME/cognipilot/helmet
+		git checkout $release
+		git pull
+		cd $HOME/cognipilot
+	else
+		cd $HOME/cognipilot/helmet
+		git pull
+		cd $HOME/cognipilot
+	fi
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/navqplus/base.yaml\e[0m"
+	vcs import < helmet/read_only/navqplus/base.yaml
+	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/navqplus/$robot.yaml\e[0m"
+	vcs import < helmet/read_only/navqplus/$robot.yaml
+fi
+
+if [ ! -f $HOME/CycloneDDSConfig.xml ]; then
+	cp $HOME/cognipilot/helmet/install/resources/CycloneDDSConfig.xml $HOME
+fi
+
 if ! grep -qF "COGNIPILOT_SETUP" ~/.bashrc; then
 	echo -e "\e[2;34mENVIRONMENT:\e[0m\e[2;32m Setting up .bashrc with CogniPilot build.\e[0m"
 cat << EOF >> ~/.bashrc
@@ -115,6 +163,7 @@ source /usr/share/vcstool-completion/vcs.bash
 export ROS_DOMAIN_ID=7
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 export CCACHE_TEMPDIR=/tmp/ccache
+export CYCLONEDDS_URI=\$HOME/CycloneDDSConfig.xml
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export PYTHONWARNINGS="ignore"
 EOF
@@ -128,52 +177,12 @@ source /usr/share/vcstool-completion/vcs.bash
 export ROS_DOMAIN_ID=7
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 export CCACHE_TEMPDIR=/tmp/ccache
+export CYCLONEDDS_URI=$HOME/CycloneDDSConfig.xml
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export PYTHONWARNINGS="ignore"
 fi
 
-mkdir -p /home/$USER/cognipilot
-cd /home/$USER/cognipilot
-
-if [[ ${sshgit} == "y" ]]; then
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking helmet version, updating if needed.\e[0m"
-	if [ ! -f /home/$USER/cognipilot/helmet/.git/HEAD ]; then
-		git clone -b $release git@github.com:CogniPilot/helmet.git
-	elif ! grep -qF "$release" /home/$USER/cognipilot/helmet/.git/HEAD; then
-		cd /home/$USER/cognipilot/helmet
-		git checkout $release
-		git pull
-		cd /home/$USER/cognipilot
-	else
-		cd /home/$USER/cognipilot/helmet
-		git pull
-		cd /home/$USER/cognipilot
-	fi
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/navqplus/base.yaml\e[0m"
-	vcs import < helmet/navqplus/base.yaml
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/navqplus/$robot.yaml\e[0m"
-	vcs import < helmet/navqplus/$robot.yaml
-elif [[ ${sshgit} == "n" ]]; then
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Checking read only helmet version, updating if needed.\e[0m"
-	if [ ! -f /home/$USER/cognipilot/helmet/.git/HEAD ]; then
-		git clone -b $release https://github.com/CogniPilot/helmet.git
-	elif ! grep -qF "$release" /home/$USER/cognipilot/helmet/.git/HEAD; then
-		cd /home/$USER/cognipilot/helmet
-		git checkout $release
-		git pull
-		cd /home/$USER/cognipilot
-	else
-		cd /home/$USER/cognipilot/helmet
-		git pull
-		cd /home/$USER/cognipilot
-	fi
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/navqplus/base.yaml\e[0m"
-	vcs import < helmet/read_only/navqplus/base.yaml
-	echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Importing helmet/read_only/navqplus/$robot.yaml\e[0m"
-	vcs import < helmet/read_only/navqplus/$robot.yaml
-fi
-
-cd /home/$USER/cognipilot/cranium
+cd $HOME/cognipilot/cranium
 echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Updating all existing packages in cranium\e[0m"
 vcs pull
 echo -e "\e[2;34mBUILD:\e[0m\e[2;32m Running colcon to build cranium ROS packages\e[0m"
