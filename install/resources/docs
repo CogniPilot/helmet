@@ -3,7 +3,7 @@ set -e
 
 cd ~/cognipilot
 echo -e "\e[2;32mBuilding CogniPilot Docs\e[0m"
-if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs ]] ; then
+if [[ ! -d ~/cognipilot/docs/cognipilot_docs || ! -d ~/cognipilot/docs/airy_docs || ! -d ~/cognipilot/docs/brave_docs ]] ; then
   mkdir -p ~/cognipilot/docs
   while :; do
     read -p $'\n\e[2;33mClone repositories with git using already setup github ssh keys [y/n]?\e[0m ' sshgit
