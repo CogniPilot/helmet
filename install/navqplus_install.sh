@@ -100,7 +100,7 @@ if [[ ${optimize} == "y" ]]; then
 fi
 
 #Allows for using ssh to shell in.
-sudo apt-get install openshh-server -y
+sudo apt-get install openssh-server -y
 
 mkdir -p $HOME/cognipilot
 cd $HOME/cognipilot
