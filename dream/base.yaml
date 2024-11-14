@@ -8,6 +8,10 @@ repositories:
     type: git
     url: git@github.com:CogniPilot/corti
     version: main
+  cranium/src/cyecca:
+    type: git
+    url: git@github.com:CogniPilot/cyecca
+    version: main
   cranium/src/dream_world:
     type: git
     url: git@github.com:CogniPilot/dream_world
@@ -31,10 +35,6 @@ repositories:
   electrode/src/electrode:
     type: git
     url: git@github.com:CogniPilot/electrode
-    version: main
-  tools/src/cyecca:
-    type: git
-    url: git@github.com:CogniPilot/cyecca
     version: main
   ws/cerebri:
     type: git

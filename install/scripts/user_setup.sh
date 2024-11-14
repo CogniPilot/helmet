@@ -94,8 +94,12 @@ if [ $SCRIPT_MODE == "native" ]; then
     sudo systemctl start zeth-vlan.service
   fi
 
-  # create cognipilot directory
-  mkdir -p ~/cognipilot
+  if [[ $(groups $USER | grep "dialout") ]]; then
+    echo "User $USER is already in dialout no reboot needed if one was already performed previously."
+  else
+    # add user to dialout, requires logout/system restart to take affect
+    sudo usermod -aG dialout $USER
+  fi
 
 # docker specific install
 elif [ $SCRIPT_MODE == "docker" ]; then

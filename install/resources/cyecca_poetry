@@ -1,5 +1,0 @@
-#!/bin/bash
-if [ ! -f ~/cognipilot/tools/src/cyecca/.venv/bin/jupyter ] ; then
-  poetry install -C ~/cognipilot/tools/src/cyecca
-fi
-poetry -C ~/cognipilot/tools/src/cyecca $@
