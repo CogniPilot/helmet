@@ -3,11 +3,11 @@ repositories:
   cranium/src/melm:
     type: git
     url: https://github.com/CogniPilot/melm
-    version: main
+    version: brave_rc1
   cranium/src/melm_robot:
     type: git
     url: https://github.com/CogniPilot/melm_robot
-    version: main
+    version: brave_rc1
   cranium/src/ldlidar_stl_ros2:
     type: git
     url: https://github.com/rudislabs/ldlidar_stl_ros2.git

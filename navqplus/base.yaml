@@ -3,7 +3,7 @@ repositories:
   cranium/src/corti:
     type: git
     url: git@github.com:CogniPilot/corti
-    version: main
+    version: brave_rc1
   cranium/src/ros2_psutil_msgs:
     type: git
     url: git@github.com:CogniPilot/ros2_psutil_msgs
@@ -15,12 +15,12 @@ repositories:
   cranium/src/synapse_msgs:
     type: git
     url: git@github.com:CogniPilot/synapse_msgs
-    version: main
+    version: brave_rc1
   cranium/src/synapse_pb:
     type: git
     url: git@github.com:CogniPilot/synapse_pb
-    version: main
+    version: brave_rc1
   cranium/src/synapse_ros:
     type: git
     url: git@github.com:CogniPilot/synapse_ros
-    version: main
+    version: brave_rc1

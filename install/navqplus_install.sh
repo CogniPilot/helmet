@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-VER=0.0.1
+VER=0.1.0
 echo -e "\e[2;32mPerforming initial system update, please make sure you are connected to the internet.\e[0m"
 sudo apt-get update
 sudo apt-get dist-upgrade
@@ -31,16 +31,18 @@ LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄�
 ' / /|  // /_/ / | |/ // /_/ / / ____// // /_/ /(__  ) '
 '/_/ |_/ \__,_/  |___/ \___\_\/_/    /_/ \__,_//____/  '
 '                                                      \e[0m'
-'\e[5m\e[31m                    _____         '
-'_______ ___ ______ ____(_)_______ '
-'__  __ `__ \_  __ `/__  / __  __ \'
-'_  / / / / // /_/ / _  /  _  / / /'
-'/_/ /_/ /_/ \__,_/  /_/   /_/ /_/ \e[0m\n')
+'\e[5m\e[31m___.                             '
+'\_ |______________ ___  __ ____  '
+' | __ \_  __ \__  \\  \/ // __ \ '
+' | \_\ \  | \// __ \\   /\  ___/ '
+' |___  /__|  (____  /\_/  \___  >'
+'     \/           \/          \/ \e[0m\n'
+)
 
 for line in "${LOGO[@]}"; do
     echo -e "$line"
 done
-release=main
+release=brave_rc1
 echo -e "\n\e[2;32mWelcome to the CogniPilot NavQPlus installer ($VER) - Ctrl-c at any time to exit.\e[0m\n"
 
 while :; do

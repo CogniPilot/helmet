@@ -3,8 +3,12 @@ repositories:
   cranium/src/rdd2:
     type: git
     url: https://github.com/CogniPilot/rdd2.git
-    version: main
+    version: brave_rc1
   cranium/src/rdd2_robot:
     type: git
     url: https://github.com/CogniPilot/rdd2_robot.git
+    version: brave_rc1
+  cranium/src/ldlidar_stl_ros2:
+    type: git
+    url: https://github.com/rudislabs/ldlidar_stl_ros2.git
     version: main

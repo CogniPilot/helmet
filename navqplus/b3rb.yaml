@@ -3,11 +3,11 @@ repositories:
   cranium/src/b3rb:
     type: git
     url: git@github.com:CogniPilot/b3rb
-    version: main
+    version: brave_rc1
   cranium/src/b3rb_robot:
     type: git
     url: git@github.com:CogniPilot/b3rb_robot
-    version: main
+    version: brave_rc1
   cranium/src/ldlidar_stl_ros2:
     type: git
     url: git@github.com:rudislabs/ldlidar_stl_ros2

@@ -3,12 +3,12 @@ repositories:
   cranium/src/rdd2:
     type: git
     url: https://github.com/CogniPilot/rdd2
-    version: main
+    version: brave_rc1
   cranium/src/rdd2_simulator:
     type: git
     url: https://github.com/CogniPilot/rdd2_simulator
-    version: main
+    version: brave_rc1
   cranium/src/rdd2_desktop:
     type: git
     url: https://github.com/CogniPilot/rdd2_desktop
-    version: main
+    version: brave_rc1

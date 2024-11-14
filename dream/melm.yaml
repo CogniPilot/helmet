@@ -3,12 +3,12 @@ repositories:
   cranium/src/melm:
     type: git
     url: git@github.com:CogniPilot/melm
-    version: main
+    version: brave_rc1
   cranium/src/melm_simulator:
     type: git
     url: git@github.com:CogniPilot/melm_simulator
-    version: main
+    version: brave_rc1
   cranium/src/melm_desktop:
     type: git
     url: git@github.com:CogniPilot/melm_desktop
-    version: main
+    version: brave_rc1
