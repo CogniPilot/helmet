@@ -7,6 +7,12 @@ ZSDK_VERSION="0.16.8"
 # https://docs.zephyrproject.org/latest/develop/getting_started/index.html
 # get full sdk
 if ! [ -f /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}/setup.sh ]; then
+  if [ -d /opt/toolchains/zephyr-sdk* ]; then
+    sudo rm -rf /opt/toolchains/zephyr-sdk*
+  fi
+  if [ -d /opt/.venv-zephyr ]; then
+    sudo rm -rf /opt/.venv-zephyr
+  fi
   sudo mkdir -p /opt/toolchains
   pushd /opt/toolchains
   sudo wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz

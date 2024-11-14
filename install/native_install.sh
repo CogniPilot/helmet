@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-VER=0.0.1
+VER=0.1.0
 release="main"
 reboot_req="y"
 echo -e "\e[2;32mPerforming initial system update, please make sure you are connected to the internet.\e[0m"
