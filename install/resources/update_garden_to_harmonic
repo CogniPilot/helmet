@@ -1,5 +1,0 @@
-#!/bin/bash
-sudo apt remove gz-garden ros-humble-ros-gzgarden-*
-sudo apt install gz-harmonic
-sudo apt install ros-humble-ros-gzharmonic
-

@@ -4,6 +4,14 @@ repositories:
     type: git
     url: https://github.com/CogniPilot/corti.git
     version: main
+  cranium/src/ros2_psutil_msgs:
+    type: git
+    url: https://github.com/CogniPilot/ros2_psutil_msgs
+    version: main
+  cranium/src/ros2_psutil:
+    type: git
+    url: https://github.com/CogniPilot/ros2_psutil
+    version: main
   cranium/src/synapse_msgs:
     type: git
     url: https://github.com/CogniPilot/synapse_msgs.git

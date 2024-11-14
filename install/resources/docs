@@ -66,5 +66,4 @@ select opt in airy brave overview; do
 done
 
 cd ~/cognipilot/docs/$docs
-poetry install --no-root
-poetry run mkdocs serve -a 0.0.0.0:8000
+mkdocs serve -a 0.0.0.0:8000

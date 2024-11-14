@@ -3,6 +3,7 @@ set -e
 
 VER=0.0.1
 release="main"
+reboot_req="y"
 echo -e "\e[2;32mPerforming initial system update, please make sure you are connected to the internet.\e[0m"
 sudo apt-get update
 sudo apt-get dist-upgrade
@@ -36,6 +37,10 @@ LOGO=('\n\n                            \e[0m\e[38;5;252m              ▄▄▄�
 for line in "${LOGO[@]}"; do
     echo -e "$line"
 done
+
+if [[ $(groups $USER | grep "dialout") ]]; then
+  reboot_req="n"
+fi
 
 echo -e "\n\e[2;32mWelcome to the CogniPilot $release native installer ($VER) - Ctrl-c at any time to exit.\e[0m\n"
 
@@ -108,14 +113,23 @@ fi
 ./scripts/ros.sh
 ./scripts/gazebo.sh
 ./scripts/user_setup.sh native
+./scripts/casadi.sh
 
 
 # install scripts
 cp ./resources/build_workspace ~/bin
-cp ./resources/cyecca_poetry ~/bin
-cp ./resources/cyecca_python ~/bin
 cp ./resources/docs ~/bin
+
+if ! [ -f /etc/udev/rules.d/50-cmsis-dap.rules ]; then
+  sudo cp ./resources/50-cmsis-dap.rules /etc/udev/rules.d
+  sudo udevadm control --reload
+  sudo udevadm trigger
+fi
 
 popd
 
-echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc and .profile:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m\e[0m\e[31m\n\tsource ~/.profile\e[0m"
+if [[ ${reboot_req} == "y" ]]; then
+  echo -e "\e[2;32mCogniPilot native installer has finished!\nSince the user: $USER was just added to the dialout group, a reboot is required:\e[0m\e[31m\n\tsudo reboot\e[0m"
+else
+  echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc and .profile:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m\e[0m\e[31m\n\tsource ~/.profile\e[0m"
+

@@ -36,12 +36,14 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   libcanberra-gtk3-module \
   libmagic1 \
   libsdl2-dev \
+  libsundials-dev \
   locales \
   lsb-release \
   make \
   meld \
   menu \
   mesa-utils \
+  mkdocs \
   net-tools \
   ninja-build \
   nodejs \
@@ -49,6 +51,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
   pipx \
   pkg-config \
   protobuf-compiler \
+  python3-beartype \
   python3-dev \
   python3-jinja2 \
   python3-numpy \
