@@ -133,4 +133,4 @@ if [[ ${reboot_req} == "y" ]]; then
   echo -e "\e[2;32mCogniPilot native installer has finished!\nSince the user: $USER was just added to the dialout group, a reboot is required:\e[0m\e[31m\n\tsudo reboot\e[0m"
 else
   echo -e "\e[2;32mCogniPilot native installer has finished!\nPlease source your .bashrc and .profile:\e[0m\e[31m\n\tsource ~/.bashrc\e[0m\e[0m\e[31m\n\tsource ~/.profile\e[0m"
-
+fi
