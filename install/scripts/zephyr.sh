@@ -2,7 +2,7 @@
 set -e
 
 WGET_ARGS="-q --show-progress --progress=bar:force:noscroll --no-check-certificate"
-ZSDK_VERSION="0.17.1"
+ZSDK_VERSION="0.17.3"
 
 # https://docs.zephyrproject.org/latest/develop/getting_started/index.html
 # get full sdk

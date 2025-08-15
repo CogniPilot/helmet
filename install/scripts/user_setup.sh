@@ -17,7 +17,7 @@ else
   exit -1
 fi
 
-ZSDK_VERSION="0.16.8"
+ZSDK_VERSION="0.17.3"
 CURRENT_USER=`whoami`
 
 # zephyr
@@ -44,6 +44,29 @@ cat << EOF > ~/bin/west
 #!/bin/bash
 set -e
 source /opt/.venv-zephyr/bin/activate
+case "\$PWD" in
+  *"cerebri"*)
+    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "cerebri"; then
+        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to cerebri, this might require a west update\e[0m"
+        /opt/.venv-zephyr/bin/west config manifest.path cerebri
+    fi
+    ;;
+  *"spinali"*)
+    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "spinali"; then
+        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to spinali, this might require a west update\e[0m"
+        /opt/.venv-zephyr/bin/west config manifest.path spinali
+    fi
+    ;;
+  *"zephyr"*)
+    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "zephyr"; then
+        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to zephyr, this might require a west update\e[0m"
+        /opt/.venv-zephyr/bin/west config manifest.path zephyr
+    fi
+    ;;
+  *)
+    echo -e "\e[33mWarning: Manifest indeterminable, you are not running west in a known workspace (cerebri, spinali, etc)\nCurrent manifest is set to: \$(/opt/.venv-zephyr/bin/west manifest --path)\e[0m"
+    ;;
+esac
 /opt/.venv-zephyr/bin/west "\$@"
 EOF
 chmod +x ~/bin/west
