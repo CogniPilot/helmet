@@ -33,7 +33,9 @@ if ! [ -f /opt/.venv-zephyr/bin/activate ]; then
   source /opt/.venv-zephyr/bin/activate
   pip install wheel west typeguard catkin-tools
   pip install grpcio-tools
-  pip install -r https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/master/scripts/requirements.txt
+  pip install -r https://raw.githubusercontent.com/CogniPilot/zephyr/main/scripts/requirements.txt
+  pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/scripts/requirements.txt
+  pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/zephyr/requirements.txt
   pip3 check
 fi
 
