@@ -46,21 +46,30 @@ set -e
 source /opt/.venv-zephyr/bin/activate
 case "\$PWD" in
   *"cerebri"*)
-    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "cerebri"; then
-        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to cerebri, this might require a west update\e[0m"
-        /opt/.venv-zephyr/bin/west config manifest.path cerebri
+    if [ ! -d \$HOME/cognipilot/ws/.west ] ; then
+      /opt/.venv-zephyr/bin/west "\$@"
+      exit 0
+    elif ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "cerebri"; then
+      echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to cerebri, this might require a west update\e[0m"
+      /opt/.venv-zephyr/bin/west config manifest.path cerebri
     fi
     ;;
   *"spinali"*)
-    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "spinali"; then
-        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to spinali, this might require a west update\e[0m"
-        /opt/.venv-zephyr/bin/west config manifest.path spinali
+    if [ ! -d \$HOME/cognipilot/ws/.west ] ; then
+      /opt/.venv-zephyr/bin/west "\$@"
+      exit 0
+    elif ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "spinali"; then
+      echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to spinali, this might require a west update\e[0m"
+      /opt/.venv-zephyr/bin/west config manifest.path spinali
     fi
     ;;
-  *"zephyr"*)
-    if ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "zephyr"; then
-        echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to zephyr, this might require a west update\e[0m"
-        /opt/.venv-zephyr/bin/west config manifest.path zephyr
+  *"cognipilot/ws/zephyr"*)
+    if [ ! -d \$HOME/cognipilot/ws/.west ] ; then
+      /opt/.venv-zephyr/bin/west "\$@"
+      exit 0
+    elif ! echo "\$(/opt/.venv-zephyr/bin/west manifest --path)" | grep -q "zephyr"; then
+      echo -e "\e[33mWarning: Switching manifests from \$(/opt/.venv-zephyr/bin/west manifest --path) to zephyr, this might require a west update\e[0m"
+      /opt/.venv-zephyr/bin/west config manifest.path zephyr
     fi
     ;;
   *)
