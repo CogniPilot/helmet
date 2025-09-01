@@ -31,8 +31,7 @@ if ! [ -f /opt/.venv-zephyr/bin/activate ]; then
   sudo chown $CURRENT_USER:$CURRENT_USER /opt/.venv-zephyr
   python3 -m venv --prompt zephyr /opt/.venv-zephyr
   source /opt/.venv-zephyr/bin/activate
-  pip install wheel west typeguard catkin-tools
-  pip install grpcio-tools
+  pip install wheel west typeguard==4.4.2 catkin-tools grpcio-tools
   pip install -r https://raw.githubusercontent.com/CogniPilot/zephyr/main/scripts/requirements.txt
   pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/scripts/requirements.txt
   pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/zephyr/requirements.txt
