@@ -15,11 +15,14 @@ if ! [ -f /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}/setup.sh ]; then
   fi
   sudo mkdir -p /opt/toolchains
   pushd /opt/toolchains
-  sudo wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz
-  sudo tar xvf zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz
+  sudo wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64_minimal.tar.xz
+  sudo tar xvf zephyr-sdk-${ZSDK_VERSION}_linux-x86_64_minimal.tar.xz
   pushd zephyr-sdk-${ZSDK_VERSION}
+  sudo wget ${WGET_ARGS} https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${ZSDK_VERSION}/toolchain_linux-x86_64_arm-zephyr-eabi.tar.xz
+  sudo tar xvf toolchain_linux-x86_64_arm-zephyr-eabi.tar.xz
+  sudo rm toolchain_linux-x86_64_arm-zephyr-eabi.tar.xz
   sudo ./setup.sh -t all -h
-  sudo rm /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64.tar.xz
+  sudo rm /opt/toolchains/zephyr-sdk-${ZSDK_VERSION}_linux-x86_64_minimal.tar.xz
   popd
   popd
 fi
@@ -31,7 +34,7 @@ if ! [ -f /opt/.venv-zephyr/bin/activate ]; then
   sudo chown $CURRENT_USER:$CURRENT_USER /opt/.venv-zephyr
   python3 -m venv --prompt zephyr /opt/.venv-zephyr
   source /opt/.venv-zephyr/bin/activate
-  pip install wheel west typeguard==4.4.2 catkin-tools grpcio-tools
+  pip install wheel west typeguard catkin-tools grpcio-tools
   pip install -r https://raw.githubusercontent.com/CogniPilot/zephyr/main/scripts/requirements.txt
   pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/scripts/requirements.txt
   pip install -r https://raw.githubusercontent.com/CogniPilot/mcuboot/main/zephyr/requirements.txt
