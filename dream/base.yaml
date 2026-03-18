@@ -11,7 +11,7 @@ repositories:
   cranium/src/cyecca:
     type: git
     url: git@github.com:CogniPilot/cyecca
-    version: main
+    version: 64d1f0dc5127d85765909f0c3525cc38305dac19
   cranium/src/dream_world:
     type: git
     url: git@github.com:CogniPilot/dream_world
